@@ -1,0 +1,32 @@
+#letters{
+    display: flex;
+    flex-direction: row;
+}
+
+.ltr{
+    height: 3rem;
+    width:3rem;
+    margin: 4px;
+    border: 2px solid brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#word{
+    display: flex;
+    flex-direction: row;
+}
+.word{
+    height: 3rem;
+    width:3rem;
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-content: end;
+    border-bottom: 2px solid brown;
+}
+
+.invisible{
+    display: none;
+}
