@@ -45,6 +45,7 @@ let onDrop = function(event) {
     // let id = event.dataTransfer.getData('text')
     console.log('I tried this: ' + id)
     const draggedLtr = document.getElementById(mvdLtr) 
+    draggedLtr.AllowDrop = false
     const wrdHolder = document.getElementById(event.target.id)
     draggedLtr.className = 'ltr'
     wrdHolder.appendChild(draggedLtr)
@@ -58,6 +59,23 @@ function onBodyDrop(event){
     ltr.classList.remove('invisble')
     console.log('triggered')
 }
+
+function returnDrop(event){
+    event.preventDefault()
+    ltr = document.getElementById(mvdLtr)
+    ltr.classList.remove('invisible')
+    ltr.className = 'ltr'
+    ltr.parentNode.append(ltr)
+    console.log('got to return drop')
+    return false
+}
+
+function returnDrag(event){
+    event.preventDefault()
+    return false
+}
+
+
 
 //displays letters and boxes to receive letters
  function dsplWrd(word){ 

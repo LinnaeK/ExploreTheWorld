@@ -39,3 +39,8 @@
 .invisible{
     display: none;
 }
+
+.bigNet{
+    width: 100%;
+    height: 100vh;
+}
