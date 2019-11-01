@@ -3,6 +3,12 @@
     flex-direction: row;
 }
 
+.holdingDiv{
+    height: 3.25rem;
+    width: 3.25rem;
+    margin: 2px;
+}
+
 .ltr{
     height: 3rem;
     width:3rem;
