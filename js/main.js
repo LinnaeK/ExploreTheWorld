@@ -4,6 +4,8 @@
 let arrPos = 0
 let world = 'jungle'
 let mvdLtr = ""
+let orgParent
+
 
 // cached elements 
 let ltrs = document.getElementById('letters')
@@ -20,11 +22,18 @@ let jungle = [{name: 'MONKEY', photo: null, funFact: null}]
 //drag and drop functions
 let onDragStart = function(event){
     id = event.target.id
+    orgParent = event.target.parentNode
     // event.dataTransfer.effectAllowed = "move"
     // event.dataTransfer.getData('text', event.target.id)
     mvdLtr= event.target.id
     event.target.className = 'invisible'
-    
+    if(event.target.parentNode.id[0] ==='l'){
+        event.target.parentNode.className = 'word';
+    } 
+}
+
+let onDragEnd = function(event){
+
 }
 
 let onDragOver = function(event) {
@@ -42,6 +51,12 @@ let onDrop = function(event) {
     // wrdHolder.remove('word')
     wrdHolder.className = 'holdingDiv'
     draggedLtr.classList.remove('invisible')
+}
+
+function onBodyDrop(event){
+    let ltr = document.getElementById(mvdLtr)
+    ltr.classList.remove('invisble')
+    console.log('triggered')
 }
 
 //displays letters and boxes to receive letters

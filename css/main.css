@@ -4,19 +4,22 @@
 }
 
 .holdingDiv{
-    height: 3.25rem;
-    width: 3.25rem;
+    height: 4.25rem;
+    width: 4.25rem;
     margin: 2px;
 }
 
 .ltr{
-    height: 3rem;
-    width:3rem;
+    height: 4rem;
+    width:4rem;
     margin: 4px;
-    border: 2px solid brown;
+    border: 2px solid;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #BD8E6A;
+    color: rgb(5, 5, 5);
+    font-style: bold;
 }
 
 #word{
@@ -24,13 +27,13 @@
     flex-direction: row;
 }
 .word{
-    height: 3rem;
-    width:3rem;
-    margin: 4px;
+    height: 4.25rem;
+    width: 4.25rem;
+    margin: 2px;
     display: flex;
     justify-content: center;
     align-content: end;
-    border-bottom: 2px solid brown;
+    border-bottom: 2px solid rgb(5, 5, 5);
 }
 
 .invisible{
