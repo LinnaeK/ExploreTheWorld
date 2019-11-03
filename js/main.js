@@ -212,17 +212,27 @@ function renderWord(scene, pos){
     dsplWrd(scrambledWrd)
 }
 
-function nextAnimal(){
-    console.log(getArray(scene))
-    if(arrPos < getArray(scene).length){
-        renderWord(scene, arrPos+1)
+// function nextAnimal(){
+//     console.log('got to next animal')
+//     console.log(getArray(scene))
+//     if(arrPos < getArray(scene).length){
+//         renderWord(scene, arrPos+1)
+//     }else{
+//         console.log('finished scene')
+//     }
+
+
+ // event listeners
+ nextBtn.addEventListener('click', function(){
+     console.log('I got clicked!')
+     clearWord()
+     if(arrPos < getArray(scene).length){
+         arrPos+= 1
+        renderWord(scene, arrPos)
     }else{
         console.log('finished scene')
     }
-}
-
- // event listeners
- nextBtn.addEventListener('click', nextAnimal())
+ })
 
 function init(){
     clearWord()
