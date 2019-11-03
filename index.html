@@ -10,10 +10,27 @@
 </head>
 <body>
     <div class = 'bigNet' ondrop = 'returnDrop(event)' ondragover = 'returnDrag(event)'>
-    <header>Explore The World</header>
+   <header>
+       <div class = 'gameTitle'>Explore The World</div>
+        <div id = 'buttonHolder'>
+            <button id = 'mountain'>Mountain</button>
+            <button id = 'savanna'>Savanna</button>
+            <button id = 'jungle'>Jungle</button>
+        </div>
+    </header>
+    <div class = 'gamePrgrs'>
+        <div class = 'pnts'>Points:</div>
+        <div class = 'prgrs'>Progress</div>
+        <div class = 'timer'>Time Remaining:</div>
+    </div>
     <img class = "animalPic" src="assets/Animals/cougar-718092_640.jpg">
     <div id = 'letters'></div>
     <div id = 'word'></div>
+    <div class = 'gameCntrl'>
+        <button id = 'shfl'>Shuffle</button>
+        <button id = 'hnt'>Hint</button>
+        <button id = 'nxtWord'>Next Animal</button>
+    </div>
     </div>
 </body>
 </html>

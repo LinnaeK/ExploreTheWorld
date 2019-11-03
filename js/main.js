@@ -2,9 +2,10 @@
 
 // state variables
 let arrPos = 0
-let world = 'jungle'
 let mvdLtr = ""
 let orgParent
+let scene 
+let currentWord 
 
 
 // cached elements 
@@ -15,7 +16,7 @@ let bdy = document.querySelector('body')
 // event listeners
 
 // data structures
-let world ={montain: [
+let world ={mountain: [
         {name: 'COUGAR', photo: 'assets/Animals/cougar-718092_640.jpg', funFact: 'This daunting large cat cannot roar. Instead it purrs like a house cat.'},
         {name: 'EAGLE', photo:'assets/Animals/bald-eagle-2190424_640.jpg', funFact: 'Unlike humans who see three basic colors, Eagles can see five basic colors and detect UV light.',},
         {name: 'MOOSE', photo:'assets/Animals/moose-70254_640.jpg', funFact: 'Despite their great bulk, moose are very comfortable in water and have been seen swimming for several miles at a time and will dive more than 16 feet to get food.',},
@@ -24,7 +25,7 @@ let world ={montain: [
         {name:'COYOTE', photo:'assets/Animals/coyote-1901990_640.jpg', funFact:'Excellent runners, Coyotes can run up to 40 miles per hour and jump over 13 feet at a time.',},
         {name:'SQUIRREL', photo:'assets/Animals/squirrel-1407699_640.jpg', funFact: 'Not only do these little animals store vast amounts of food for later, they create elaborate fake burials in the process to trick any potential thieves.',},
         {name: 'OSPREY', photo:'assets/Animals/osprey-67786_640.jpg', funFact:'Female osprey are generally 20% heavier than males and have a wingspan 5-10% greater.',},],
-    {savanna: [
+    savanna: [
         {name: 'CHEETAH', photo: 'assets/Animals/cheetah-2859581_640.jpg', funFact: 'Known as the fastest land animal, these creatures use their tale to steer themselves while running.'},
         {name: 'WILDEBEEST', photo:'assets/Animals/wildebeest-322088_640.jpg', funFact:'Always in search for more grazing lands, some wildebeests travel up to a 1,000 miles a year.',},
         {name:'ANTELOPE', photo:'assets/Animals/antelope-425161_640.jpg', funFact: 'Antelopes that live in herds have glands in their hooves that leave a scent wherever they walk. If one of thier members gets separated it can follow the scent back to the heard.',},
@@ -32,8 +33,8 @@ let world ={montain: [
         {name:'WARTHOG', photo:'assets/Animals/warthog-2818953_640.jpg', funFact: 'The bumpy patches on a warthog\'s face are not actuall warts as their name implies. They are thick patches of skin which provide padding for adualt males when they fight during mating season.',},
         {name:'RHINOCEROS', photo:'assets/Animals/rhino-4555707_640.jpg', funFact:'Rhinoceros have no known predators but despite this they are easily frightened. When they feel threatend they will charge whatever spooked them.',},
         {name:'ZEBRA', photo:'assets/Animals/zebra-3758310_640.jpg', funFact:'Zebra\'s black and white stripes cause air to move across it\s fur at different speeds thus cooling down the Zebra.',},
-        {name:'GAZELLE', photo:'assets/Animals/gazelle-2242886_640.jpg', funFact:'Large herds of these animals are generally female gazelle\'s and their offspring. Male gazelles live in seperate heards.',},]
-    {jungle: [
+        {name:'GAZELLE', photo:'assets/Animals/gazelle-2242886_640.jpg', funFact:'Large herds of these animals are generally female gazelle\'s and their offspring. Male gazelles live in seperate heards.',},],
+    jungle: [
         {name: "MONKEY", photo: 'assets/Animals/monkeys-4550159_640.jpg', funFact: 'At the tip of a monkey\'s tail is a patch of bare skin that acts similar to human fingertips. It is sensitive to touch and has tiny ridges that help it\'s tail grip better.'},
         {name: 'MACAW', photo:'assets/Animals/macaw-1817586_640.jpg', funFact:'These colorful animals live long lives - up to 60 years in the wild.',},
         {name: 'ANTEATER', photo:'assets/Animals/flag-anteater-1200155_640.jpg', funFact:'In order to avoid being bitten by ants while eating them, anteaters flick their tongue 150-160 times a minute while feeding.',},
@@ -43,8 +44,34 @@ let world ={montain: [
         {name:'JAGUAR', photo:'assets/Animals/animal-2607_640.jpg', funFact:'Not afraid of water, Jaguar\'s are known to swim across teh Panama Canal.',},
         {name:'GORILLA', photo:'assets/Animals/gorilla-3606721_640.jpg', funFact: 'Gorillas have a bite force of around 1300psi - twice that of a lion.',},
     ]}
-let jungle = [{name: 'MONKEY', photo: null, funFact: null}]
+// let jungle = [{name: 'MONKEY', photo: null, funFact: null}]
 
+function getArray(scene){
+    let arry
+    switch(scene){
+        case 'mountain':
+            arry = world.mountain
+            break
+        case 'savanna':
+            arry = world.savanna
+            break
+        case 'jungle':
+            arry = world.jungle
+            break
+    }
+    return arry;
+}
+
+function hasWon(){
+    let guessedWord = ""
+    let guessedLetters = document.querySelectorAll('.droppedLtr')
+    console.log(guessedLetters[0].id[0])
+    // for(let i = 0; i < guessedLetters.length; i++){
+    //     guessedWord += guessedLetters[i].childNodes[0].id[0]
+    //     console.log('gsd wrd:' + guessedWord)
+    // }
+    console.log("got here: " + guessedLetters)
+}
 
 function storeData(event){
     event.dataTransfer.setData('text', event.target.id)
@@ -94,10 +121,11 @@ function returnDrop(event){
     event.preventDefault()
     ltr = document.getElementById(mvdLtr)
     ltr.classList.remove('invisible')
-    ltr.className = 'ltr'
+    ltr.className = 'droppedLtr'
     ltr.parentNode.append(ltr)
     ltr.parentNode.className = 'holdingDiv'
     console.log('got to return drop')
+    hasWon()
     return false
 }
 
@@ -118,7 +146,7 @@ function returnDrag(event){
         img = document.createElement('img')
         img.src = `assets/Alphabet/${word[i]}.png`
         img.className = 'ltr'
-        img.id = 'sl'+i
+        img.id = word[i]+i
         // newDiv.setAttribute('dragstart', "storeData(event)")
         img.setAttribute("ondrag", "onDragStart(event)")
         img.addEventListener('onDrag', onDragStart)
@@ -155,8 +183,34 @@ let shuffle = function(word){
 }
 
 
+function init(){
+    let btnHolder = document.getElementById('buttonHolder')
+    btnHolder.addEventListener('click', function(evt){
+        console.log('got btn click')
+        scene = evt.target.id
+        let sceneArr = getArray(scene)
+        let word
+        for(i =0; i < sceneArr.length; i++){
+            console.log('in for loop')
+            word = sceneArr[i].name
+            currentWord = word
+            let scrambledWrd = shuffle(word)
+            dsplWrd(scrambledWrd)
+            // hasWon(word)
+            displayWinning(scene[i])
+        }
+        console.log(sceneArr)
+    })
+    //get scene array
+    //get word
+    //make scrambled word
+    //display letters and empty slots
 
 
+}
 
-dsplWrd(shuffle(jungle[arrPos].name))
+
+init()
+
+// dsplWrd(shuffle(world.jungle[arrPos].name))
 
