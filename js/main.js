@@ -15,6 +15,34 @@ let bdy = document.querySelector('body')
 // event listeners
 
 // data structures
+let world ={montain: [
+        {name: 'COUGAR', photo: 'assets/Animals/cougar-718092_640.jpg', funFact: 'This daunting large cat cannot roar. Instead it purrs like a house cat.'},
+        {name: 'EAGLE', photo:'assets/Animals/bald-eagle-2190424_640.jpg', funFact: 'Unlike humans who see three basic colors, Eagles can see five basic colors and detect UV light.',},
+        {name: 'MOOSE', photo:'assets/Animals/moose-70254_640.jpg', funFact: 'Despite their great bulk, moose are very comfortable in water and have been seen swimming for several miles at a time and will dive more than 16 feet to get food.',},
+        {name: 'BEAR', photo:'assets/Animals/bear-1245807_640.jpg', funFact:'When a bear hibernates their heart slows from 55 beats per minute to 9 beats per minute.',},
+        {name: 'BEAVER', photo:'assets/Animals/nutria-1386446_640.jpg', funFact: 'These semi-aquatic animals have a set of transparent eyelids which let them see under water.',},
+        {name:'COYOTE', photo:'assets/Animals/coyote-1901990_640.jpg', funFact:'Excellent runners, Coyotes can run up to 40 miles per hour and jump over 13 feet at a time.',},
+        {name:'SQUIRREL', photo:'assets/Animals/squirrel-1407699_640.jpg', funFact: 'Not only do these little animals store vast amounts of food for later, they create elaborate fake burials in the process to trick any potential thieves.',},
+        {name: 'OSPREY', photo:'assets/Animals/osprey-67786_640.jpg', funFact:'Female osprey are generally 20% heavier than males and have a wingspan 5-10% greater.',},],
+    {savanna: [
+        {name: 'CHEETAH', photo: 'assets/Animals/cheetah-2859581_640.jpg', funFact: 'Known as the fastest land animal, these creatures use their tale to steer themselves while running.'},
+        {name: 'WILDEBEEST', photo:'assets/Animals/wildebeest-322088_640.jpg', funFact:'Always in search for more grazing lands, some wildebeests travel up to a 1,000 miles a year.',},
+        {name:'ANTELOPE', photo:'assets/Animals/antelope-425161_640.jpg', funFact: 'Antelopes that live in herds have glands in their hooves that leave a scent wherever they walk. If one of thier members gets separated it can follow the scent back to the heard.',},
+        {name: 'ELEPHANT', photo:'assets/Animals/elephant-111695_640.jpg', funFact:'Despite their tough looking skin, elephants are susceptible to sunburn. They give themselves and their children dirt baths to protect their skin from the sun\'s rays.',},
+        {name:'WARTHOG', photo:'assets/Animals/warthog-2818953_640.jpg', funFact: 'The bumpy patches on a warthog\'s face are not actuall warts as their name implies. They are thick patches of skin which provide padding for adualt males when they fight during mating season.',},
+        {name:'RHINOCEROS', photo:'assets/Animals/rhino-4555707_640.jpg', funFact:'Rhinoceros have no known predators but despite this they are easily frightened. When they feel threatend they will charge whatever spooked them.',},
+        {name:'ZEBRA', photo:'assets/Animals/zebra-3758310_640.jpg', funFact:'Zebra\'s black and white stripes cause air to move across it\s fur at different speeds thus cooling down the Zebra.',},
+        {name:'GAZELLE', photo:'assets/Animals/gazelle-2242886_640.jpg', funFact:'Large herds of these animals are generally female gazelle\'s and their offspring. Male gazelles live in seperate heards.',},]
+    {jungle: [
+        {name: "MONKEY", photo: 'assets/Animals/monkeys-4550159_640.jpg', funFact: 'At the tip of a monkey\'s tail is a patch of bare skin that acts similar to human fingertips. It is sensitive to touch and has tiny ridges that help it\'s tail grip better.'},
+        {name: 'MACAW', photo:'assets/Animals/macaw-1817586_640.jpg', funFact:'These colorful animals live long lives - up to 60 years in the wild.',},
+        {name: 'ANTEATER', photo:'assets/Animals/flag-anteater-1200155_640.jpg', funFact:'In order to avoid being bitten by ants while eating them, anteaters flick their tongue 150-160 times a minute while feeding.',},
+        {name:'IGUANA', photo:'assets/Animals/iguana-223157_640.jpg', funFact:'Green iguanas are tough. They can drop from a branch 40 feet in the air, hit the ground, and still survive.',},
+        {name:'ANACONDA', photo:'assets/Animals/anaconda-600096_640.jpg', funFact:'Female green anacondas are the larger sex in this species, and have been observed eating meeker males, generally during mating season.',},
+        {name: 'SLOTH', photo:'assets/Animals/sloth-1879999_640.jpg', funFact:'These animals urinate and deficate only once a week and always in the same place.',},
+        {name:'JAGUAR', photo:'assets/Animals/animal-2607_640.jpg', funFact:'Not afraid of water, Jaguar\'s are known to swim across teh Panama Canal.',},
+        {name:'GORILLA', photo:'assets/Animals/gorilla-3606721_640.jpg', funFact: 'Gorillas have a bite force of around 1300psi - twice that of a lion.',},
+    ]}
 let jungle = [{name: 'MONKEY', photo: null, funFact: null}]
 
 
