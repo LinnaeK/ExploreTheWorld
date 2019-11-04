@@ -34,6 +34,10 @@ body{
     z-index: 0;
 }
 
+.playingTitle{
+    font-size: 4rem;
+}
+
 header{
     width: 100%;
     display: flex;
@@ -70,7 +74,10 @@ button{
 .gamePrgrs{
     display:flex;
     width: 100%;
+    height: 2rem;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 .35rem;
     background-color: black /*rgb(90, 62, 32)*/;
     color: white;
     letter-spacing: .1rem;
@@ -98,12 +105,13 @@ button{
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(-30deg);
-    margin: 1rem .25rem 4rem
+    margin: 1rem .25rem 2rem
 }
 
 #displayPic{
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 13rem;
     font-display: bold;
     color: black;

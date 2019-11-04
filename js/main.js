@@ -255,7 +255,7 @@ function nextAnimal(){
         let sceneSelector = document.querySelector('.world')
         sceneSelector.style.display = 'none'
         let playScene = document.querySelector('.bigNet')
-        playScene.style.display = 'contents~'
+        playScene.style.display = 'flex'
         newGame = false
         scene = evt.target.id
         let sceneArr = getArray(scene)
