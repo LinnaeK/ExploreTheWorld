@@ -7,32 +7,32 @@
     <title>Explore The World</title>
     <script defer src ="js/main.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Libre+Franklin:500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class = 'bigNet' ondrop = 'returnDrop(event)' ondragover = 'returnDrag(event)'>
-   <header>
-       <div class = 'gameTitle'>Explore The World</div>
-        <div id = 'buttonHolder'>
-            <button id = 'mountain'>Mountain</button>
-            <button id = 'savanna'>Savanna</button>
-            <button id = 'jungle'>Jungle</button>
+            <header>
+                <div class = 'gameTitle'>Explore The World</div>
+                <div id = 'buttonHolder'>
+                    <button id = 'mountain'>Mountain</button>
+                    <button id = 'savanna'>Savanna</button>
+                    <button id = 'jungle'>Jungle</button>
+                </div>
+            </header>
+            <div class = 'gamePrgrs'>
+                <div id = 'pnts'>Points:</div>
+                <div id = 'prgrs'></div>
+                <div id = 'timer'>timer</div>
+            </div>
+            <div id = displayPic>?</div>
+            <div id = 'letters'></div>
+            <div id = 'word'></div>
+            <div class = 'gameCntrl'>
+                <button id = 'shfl'>Shuffle</button>
+                <button id = 'hnt'>Hint</button>
+                <button id = 'nxtWord'>Next Animal</button>
+            </div>
         </div>
-    </header>
-    <div class = 'gamePrgrs'>
-        <div id = 'pnts'>Points:</div>
-        <div id = 'prgrs'></div>
-        <div id = 'timer'>timer</div>
-    </div>
-    <div id = displayPic>
-        <img id = "animalPic" src = 'assets/question-solid.svg'>
-    </div>
-    <div id = 'letters'></div>
-    <div id = 'word'></div>
-    <div class = 'gameCntrl'>
-        <button id = 'shfl'>Shuffle</button>
-        <button id = 'hnt'>Hint</button>
-        <button id = 'nxtWord'>Next Animal</button>
-    </div>
-    </div>
-</body>
-</html>
+        
+    </body>
+    </html>

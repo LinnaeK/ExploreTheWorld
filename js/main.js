@@ -82,6 +82,7 @@ function getArray(scene){
 
 
 function hasWon(){
+    console.log(newGame)
     let guessedWord = ""
     let guessedLetters = document.querySelectorAll('.droppedLtr')
     // console.log(guessedLetters[0].id[0])
@@ -90,9 +91,19 @@ function hasWon(){
     }
     if (guessedWord === currentWord){
         points += 1
-        let pic = document.getElementById('animalPic')
+        console.log(points)
+        let pointCounter = document.getElementById('pnts')
+        pointCounter.innerHTML = `Points: ${points}`
+        totalCompleted+=1
+        let progressBar = document.getElementById('prgrs')
+        progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
+        let holder = document.getElementById('displayPic')
         let array = getArray(scene)
-        pic.src = array[arrPos].photo
+        holder.innerHTML = `<img id = 'animalPic' src = ${array[arrPos].photo}></img>`
+        // pic.src = array[arrPos].photo
+    }else if(guessedWord.length === currentWord.length){
+        clearWord()
+        dsplWrd(shuffle(currentWord))
     }
 }
 
@@ -215,6 +226,8 @@ function nextAnimal(){
      clearWord()
      if(arrPos < getArray(scene).length){
          arrPos+= 1
+         let displayPic = document.getElementById('displayPic')
+         displayPic.innerHTML = '?'
         renderWord(scene, arrPos)
     }else{
         console.log('finished scene')
