@@ -8,16 +8,41 @@
     <script defer src ="js/main.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Libre+Franklin:500&display=swap" rel="stylesheet">
+    <script
+ 	src="https://code.jquery.com/jquery-3.2.1.min.js"
+ 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+ 	crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class = 'sceneSelector'></div>
+        <div class = 'world'>
+            <div class = 'gameTitle'>
+                <div id = 'gameTitle'>Explore the </div>
+                <div> 
+                    <img class = 'title' src = 'assets/Alphabet/W.png'>
+                    <img class = 'title' src = 'assets/Alphabet/O.png'>
+                    <img class = 'title' src = 'assets/Alphabet/R.png'>
+                    <img class = 'title' src = 'assets/Alphabet/L.png'>
+                    <img class = 'title' src = 'assets/Alphabet/D.png'>
+                </div>
+                <div id = 'buttonHolder'>
+                    <button class = 'scnBtn' id = 'mountain'>Mountain</button>
+                    <button class = 'scnBtn' id = 'savanna'>Savanna</button>
+                    <button class = 'scnBtn' id = 'jungle'>Jungle</button>
+                </div>
+            </div>
+            <img class = 'worldPic' src = 'assets/globe-1339833_640.png'>
+        </div>
+    </div>  
     <div class = 'bigNet' ondrop = 'returnDrop(event)' ondragover = 'returnDrag(event)'>
             <header>
-                <div class = 'gameTitle'>Explore The World</div>
-                <div id = 'buttonHolder'>
-                    <button id = 'mountain'>Mountain</button>
-                    <button id = 'savanna'>Savanna</button>
-                    <button id = 'jungle'>Jungle</button>
-                </div>
+                <div class = 'gameTitle'>Explore The   
+                    <img class = 'title' src = 'assets/Alphabet/W.png'>
+                    <img class = 'title' src = 'assets/Alphabet/O.png'>
+                    <img class = 'title' src = 'assets/Alphabet/R.png'>
+                    <img class = 'title' id = 'slanting' src = 'assets/Alphabet/L.png'>
+                    <img class = 'title' src = 'assets/Alphabet/D.png'>
+                 </div>
             </header>
             <div class = 'gamePrgrs'>
                 <div id = 'pnts'>Points:</div>

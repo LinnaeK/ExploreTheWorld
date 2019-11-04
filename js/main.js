@@ -40,7 +40,7 @@ let currentWord
 let points = 0
 let totalCompleted = 0
 let newGame = true
-
+let chooseScene = true
 
 // cached elements 
 let ltrs = document.getElementById('letters')
@@ -252,6 +252,10 @@ function nextAnimal(){
     
     let btnHolder = document.getElementById('buttonHolder')
     btnHolder.addEventListener('click', function(evt){
+        let sceneSelector = document.querySelector('.world')
+        sceneSelector.style.display = 'none'
+        let playScene = document.querySelector('.bigNet')
+        playScene.style.display = 'contents~'
         newGame = false
         scene = evt.target.id
         let sceneArr = getArray(scene)
@@ -264,6 +268,8 @@ function nextAnimal(){
  }
 
 function init(){
+    let playScene = document.querySelector('.bigNet')
+    playScene.style.display = 'none'
     renderNewScene()
     
     //get scene array
