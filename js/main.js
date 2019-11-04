@@ -35,12 +35,13 @@ let world ={
 let arrPos = 0
 let mvdLtr = ""
 let orgParent
-let scene = ''
+let scene = 'mountain'
 let currentWord
 let points = 0
 let totalCompleted = 0
 let newGame = true
-let chooseScene = true
+let time = 45
+let findingWord
 
 // cached elements 
 let ltrs = document.getElementById('letters')
@@ -50,18 +51,22 @@ let shuffleBtn = document.getElementById('shfl')
 let hintBtn = document.getElementById('hnt')
 let nextBtn = document.getElementById('nxtWord')
         
-function timer(i) {
+function timer() {
     var int = setInterval(function() {
-        i-=1
-        if (i === 0){
-            console.log('reached 0')
-            newGame = true
-            renderNewScene()
+        if(findingWord && time >= 0){
+            if (time === 0){
+                console.log('reached 0')
+                newGame = true
+                renderNewScene()
+                return
+            }
+            time-=1
+            let min = Math.floor(time/60)
+            let sec = time - (min*60)
+            document.getElementById('timer').innerHTML = `${min}:${sec}`|| clearInterval(int)
         }
-        let min = Math.floor(i/60)
-        let sec = i - (min*60)
-        document.getElementById('timer').innerHTML = `${min}:${sec}`|| clearInterval(int)
     }, 1000)
+
 }
         
 function getArray(scene){
@@ -90,10 +95,8 @@ function hasWon(){
         guessedWord += guessedLetters[i].id[0]
     }
     if (guessedWord === currentWord){
-        points += 1
-        console.log(points)
-        let pointCounter = document.getElementById('pnts')
-        pointCounter.innerHTML = `Points: ${points}`
+        calculatePoints()
+        findingWord = false
         totalCompleted+=1
         let progressBar = document.getElementById('prgrs')
         progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
@@ -105,6 +108,29 @@ function hasWon(){
         clearWord()
         dsplWrd(shuffle(currentWord))
     }
+}
+
+function calculatePoints(){
+    console.log('got to calculate points')
+    console.log(typeof(time))
+    switch (true) {
+        case (time<15):
+            console.log('<15')
+            points+=1
+            break;
+        case (time<30):
+            console.log('<30')
+            points+=2
+            break;
+        case (time<45):
+            console.log('<45')
+            points+=3
+            break;
+
+    }
+    console.log(points)
+    let pointCounter = document.getElementById('pnts')
+    pointCounter.innerHTML = `Points: ${points}`
 }
 
 function storeData(event){
@@ -166,12 +192,14 @@ function returnDrag(event){
 }
 
 function clearWord(){
+    console.log('cleared word')
     ltrs.innerHTML = ""
     wrd.innerHTML = ""
 }
 
 //displays letters and boxes to receive letters
  function dsplWrd(word){ 
+     console.log('got to dsplword')
     // displays letters
     for(let i = 0; i < word.length; i++){
         holdingDiv = document.createElement('div')
@@ -183,6 +211,7 @@ function clearWord(){
         img.setAttribute("ondrag", "onDragStart(event)")
         img.addEventListener('onDrag', onDragStart)
         img.draggable="true"
+        console.log(img)
         holdingDiv.append(img)
         ltrs.append(holdingDiv)
     }
@@ -214,17 +243,23 @@ let shuffle = function(word){
 }
 
 function renderWord(scene, pos){
+    console.log('got to renderWord')
+    findingWord = true
     array = getArray(scene)
     word = array[pos].name
     currentWord = word
     console.log(array)
     let scrambledWrd = shuffle(word)
+
     dsplWrd(scrambledWrd)
+    timer(time)
 }
 
 function nextAnimal(){
      clearWord()
      if(arrPos < getArray(scene).length){
+         time = 45
+         findingWord = true
          arrPos+= 1
          let displayPic = document.getElementById('displayPic')
          displayPic.innerHTML = '?'
@@ -239,19 +274,29 @@ function nextAnimal(){
  nextBtn.addEventListener('click', nextAnimal)
 
  function renderNewScene(){
+     clearWord()
      if(newGame){
+         console.log('new game '+newGame)
         arrPos = 0
         points = 0
         totalCompleted = 0
+        time = 45
+        console.log(scene)
+        let sceneArr = getArray(scene)
+        let progress = document.getElementById('prgrs')
+        console.log(prgrs)
+        progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
+        newGame = false
+        renderWord(scene, 0)
      }
 
-    clearWord()
     let pointCounter = document.getElementById('pnts')
     pointCounter.innerHTML = `Points: ${points}`
-    // timer(60)
+
     
     let btnHolder = document.getElementById('buttonHolder')
     btnHolder.addEventListener('click', function(evt){
+        clearWord()
         let sceneSelector = document.querySelector('.world')
         sceneSelector.style.display = 'none'
         let playScene = document.querySelector('.bigNet')
@@ -259,10 +304,10 @@ function nextAnimal(){
         newGame = false
         scene = evt.target.id
         let sceneArr = getArray(scene)
-        renderWord(scene, 0)
         let progress = document.getElementById('prgrs')
         console.log(prgrs)
         progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
+        renderWord(scene, 0)
     })
 
  }
