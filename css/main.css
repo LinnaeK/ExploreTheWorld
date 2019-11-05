@@ -96,32 +96,53 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
 }
 
 #slanting{
-    -webkit-transform:rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
     transform: rotate(-30deg);
     margin: 1rem .25rem 2rem
 }
 #picHolder{
     position:relative
 }
-#displayPic{
+
+#fnFact{
+    font-size: 1.5rem;
+    background: rgb(5, 5, 5, 0.5);
+    color: white;
+}
+.displayPic{
     background-color: #79807e;
     background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
     /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    background-size:contain;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 13rem;
     font-display: bold;
-    background-color: lightslategray;
     border: 3px solid black;
     color: white;
     width: 30rem;
     height: 15rem;
     margin: 2rem;
+    padding: 2rem;
 }
+
+
+.displayFact{
+    font-family:'Libre Franklin', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 2rem;
+    font-display: bold;
+    border: 3px solid black;
+    color:black;
+    width: 30rem;
+    height: 20rem;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+
 
 #funFact{
     bottom: 0;
@@ -136,6 +157,8 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
     text-align: center;
     width: 30rem;
     height: 15rem;
+    margin: 2rem;
+
 }
 #letters{
     display: flex;

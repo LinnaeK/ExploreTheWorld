@@ -95,15 +95,18 @@ function hasWon(){
         guessedWord += guessedLetters[i].id[0]
     }
     if (guessedWord === currentWord){
-        nextBtn.disabled = false
         shuffleBtn.disabled = true
         hintBtn.disabled = true
         calculatePoints()
         findingWord = false
-        let holder = document.getElementById('displayPic')
         let array = getArray(scene)
-        // holder.style.background = url(array[arrPos].photo)
-        holder.innerHTML = `<img id = 'animalPic' src = ${array[totalCompleted].photo}></img>`
+        let holder = document.querySelector('.displayPic')
+        holder.className = 'displayFact'
+        let picURL = array[totalCompleted].photo
+        console.log(picURL)
+        holder.style.backgroundImage = `url(${picURL})`
+        holder.innerHTML = ""
+        setTimeout(displayFunFact, 5*1000)
         totalCompleted+=1
         let progressBar = document.getElementById('prgrs')
         progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
@@ -112,6 +115,14 @@ function hasWon(){
         clearWord()
         dsplWrd(shuffle(currentWord))
     }
+}
+
+function displayFunFact(){
+    nextBtn.disabled = false
+    let displayPic = document.querySelector('.displayFact')
+    let funFactDisp = getArray(scene)[totalCompleted-1].funFact
+    displayPic.innerHTML = `<span id = 'fnFact' >${funFactDisp}</span>`
+    // displayPic.style.opacity = '0.6'
 }
 
 function calculatePoints(){
@@ -312,8 +323,13 @@ function nextAnimal(){
     hintBtn.disabled = false
     shuffleBtn.disabled = false
     console.log('In next animal: ' + totalCompleted)
-    let displayPic = document.getElementById('displayPic')
+    let displayPic = document.querySelector('.displayFact')
+    displayPic.style.opacity = '1'
     displayPic.innerHTML = '?'
+    displayPic.className = 'displayPic'
+    let grayBackground = "https://www.transparenttextures.com/patterns/45-degree-fabric-light.png"
+    displayPic.style.backgroundImage = `url(${grayBackground})`
+    displayPic.style.backgroundColor = '#79807e';
      clearWord()
      if(totalCompleted < getArray(scene).length){
          time = 45
