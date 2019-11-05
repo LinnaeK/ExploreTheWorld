@@ -95,6 +95,9 @@ function hasWon(){
         guessedWord += guessedLetters[i].id[0]
     }
     if (guessedWord === currentWord){
+        nextBtn.disabled = false
+        shuffleBtn.disabled = true
+        hintBtn.disabled = true
         calculatePoints()
         findingWord = false
         let holder = document.getElementById('displayPic')
@@ -305,6 +308,9 @@ function giveHint(){
 }
 
 function nextAnimal(){
+    nextBtn.disabled = true
+    hintBtn.disabled = false
+    shuffleBtn.disabled = false
     console.log('In next animal: ' + totalCompleted)
     let displayPic = document.getElementById('displayPic')
     displayPic.innerHTML = '?'
@@ -371,7 +377,9 @@ function init(){
     timer(time)
     let playScene = document.querySelector('.bigNet')
     playScene.style.display = 'none'
+    nextBtn.disabled = true
     renderNewScene()
+    
     
     //get scene array
     //get word
