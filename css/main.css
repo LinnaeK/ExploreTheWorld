@@ -1,6 +1,7 @@
 body{
     font-family: 'Amatic SC', cursive;
 }
+
 .world{
     display: flex;
     justify-content: center;
@@ -107,7 +108,9 @@ button{
     transform: rotate(-30deg);
     margin: 1rem .25rem 2rem
 }
-
+#picHolder{
+    position:relative
+}
 #displayPic{
     display: flex;
     justify-content: center;
@@ -122,6 +125,15 @@ button{
     height: 15rem;
     margin: 2rem;
 }
+
+#funFact{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: yellow;
+}
+
 #animalPic{
     box-shadow: 0px 0px 0px 2px #f2fadc;
     text-align: center;
@@ -139,7 +151,7 @@ button{
     margin: 2px;
 }
 
-.ltr, .droppedLtr{
+.ltr, .droppedLtr {
     height: 4rem;
     width:4rem;
     margin: 4px;

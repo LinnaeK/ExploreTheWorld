@@ -32,7 +32,6 @@ let world ={
 //constants
 
 // state variables
-let arrPos = 0
 let mvdLtr = ""
 let orgParent
 let scene = 'mountain'
@@ -50,6 +49,7 @@ let bdy = document.querySelector('body')
 let shuffleBtn = document.getElementById('shfl')
 let hintBtn = document.getElementById('hnt')
 let nextBtn = document.getElementById('nxtWord')
+
         
 function timer() {
     var int = setInterval(function() {
@@ -97,12 +97,13 @@ function hasWon(){
     if (guessedWord === currentWord){
         calculatePoints()
         findingWord = false
+        let holder = document.getElementById('displayPic')
+        let array = getArray(scene)
+        // holder.style.background = url(array[arrPos].photo)
+        holder.innerHTML = `<img id = 'animalPic' src = ${array[totalCompleted].photo}></img>`
         totalCompleted+=1
         let progressBar = document.getElementById('prgrs')
         progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
-        let holder = document.getElementById('displayPic')
-        let array = getArray(scene)
-        holder.innerHTML = `<img id = 'animalPic' src = ${array[arrPos].photo}></img>`
         // pic.src = array[arrPos].photo
     }else if(guessedWord.length === currentWord.length){
         clearWord()
@@ -157,9 +158,9 @@ let onDragOver = function(event) {
 
 let onDrop = function(event) {
     event.preventDefault()
-    var data = event.dataTransfer.getData('text')
-    console.log('we got: ', data)
-    console.log('I tried this: ' + id)
+    // var data = event.dataTransfer.getData('text')
+    // console.log('we got: ', data)
+    // console.log('I tried this: ' + id)
     const draggedLtr = document.getElementById(mvdLtr) 
     draggedLtr.AllowDrop = false
     const wrdHolder = document.getElementById(event.target.id)
@@ -211,7 +212,6 @@ function clearWord(){
         img.setAttribute("ondrag", "onDragStart(event)")
         img.addEventListener('onDrag', onDragStart)
         img.draggable="true"
-        console.log(img)
         holdingDiv.append(img)
         ltrs.append(holdingDiv)
     }
@@ -242,29 +242,85 @@ let shuffle = function(word){
     return arr.join("")
 }
 
-function renderWord(scene, pos){
-    console.log('got to renderWord')
+function renderWord(){
     findingWord = true
     array = getArray(scene)
-    word = array[pos].name
+    word = array[totalCompleted].name
     currentWord = word
-    console.log(array)
     let scrambledWrd = shuffle(word)
 
     dsplWrd(scrambledWrd)
-    timer(time)
+}
+
+function reShuffle(){
+    clearWord()
+    renderWord()
+}
+
+shuffleBtn.addEventListener('click', reShuffle)
+hintBtn.addEventListener('click', giveHint)
+
+function giveHint(){
+    //get remaining ltrs left to choose from
+    let ltrList = document.querySelectorAll('.ltr')
+    //get random number with which to select hint letter
+    let rndmNumber = Math.floor(Math.random() * Math.floor(ltrList.length))
+    //select the letter to hint
+    let hintLetter = ltrList[rndmNumber].id[0]
+    //get the element of hint letter
+    let hintLetterElem = document.getElementById(ltrList[rndmNumber].id)
+    hintLetterElem.className = 'droppedLtr'
+    //get current array
+    let curArray = getArray(scene)
+    //get animalName
+    let animalName = curArray[totalCompleted].name
+    //create an array of positions of hintLetter
+    let locOfLetter = []
+    for(let i = 0; i < animalName.length; i++){
+        if(animalName[i] === hintLetter){
+            locOfLetter.push(i)
+        }
+    }
+
+    let locOfLetterPos = 0
+    let destinationLoc = document.getElementById('word').childNodes[locOfLetter[locOfLetterPos]]
+    //check to see if destinationLoc already has a letter. If it does, try a position or return wrong letter to selection options
+    if(destinationLoc.hasChildNodes()){
+        while(destinationLoc.hasChildNodes()){
+            console.log('destination loc check started: '+ locOfLetter, locOfLetterPos)
+            if((destinationLoc.firstChild.id[0]) === hintLetter){
+                locOfLetterPos += 1
+                destinationLoc = document.getElementById('word').childNodes[locOfLetter[locOfLetterPos]]
+            }else{
+                let wrongLetter = document.getElementById(destinationLoc.firstChild.id)
+                wrongLetter.className = 'ltr'
+                hintLetterElem.parentNode.appendChild(wrongLetter)
+            }
+        }
+    }
+    if(!destinationLoc.hasChildNodes()){
+        destinationLoc.appendChild(hintLetterElem)
+    }
+    hasWon()
 }
 
 function nextAnimal(){
+    console.log('In next animal: ' + totalCompleted)
+    let displayPic = document.getElementById('displayPic')
+    displayPic.innerHTML = '?'
      clearWord()
-     if(arrPos < getArray(scene).length){
+     if(totalCompleted < getArray(scene).length){
          time = 45
          findingWord = true
-         arrPos+= 1
-         let displayPic = document.getElementById('displayPic')
-         displayPic.innerHTML = '?'
-        renderWord(scene, arrPos)
+        //  totalCompleted+= 1
+        renderWord()
     }else{
+        let playScene = document.querySelector('.bigNet')
+        playScene.style.display = 'none'
+        let sceneSelector = document.querySelector('.world')
+        sceneSelector.style.display = 'flex'
+        newGame = true
+        renderNewScene()
         console.log('finished scene')
     }
 }
@@ -277,7 +333,6 @@ function nextAnimal(){
      clearWord()
      if(newGame){
          console.log('new game '+newGame)
-        arrPos = 0
         points = 0
         totalCompleted = 0
         time = 45
@@ -287,7 +342,7 @@ function nextAnimal(){
         console.log(prgrs)
         progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
         newGame = false
-        renderWord(scene, 0)
+        renderWord()
      }
 
     let pointCounter = document.getElementById('pnts')
@@ -307,12 +362,13 @@ function nextAnimal(){
         let progress = document.getElementById('prgrs')
         console.log(prgrs)
         progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
-        renderWord(scene, 0)
+        renderWord()
     })
 
  }
 
 function init(){
+    timer(time)
     let playScene = document.querySelector('.bigNet')
     playScene.style.display = 'none'
     renderNewScene()
