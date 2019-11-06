@@ -49,6 +49,7 @@ let bdy = document.querySelector('body')
 let shuffleBtn = document.getElementById('shfl')
 let hintBtn = document.getElementById('hnt')
 let nextBtn = document.getElementById('nxtWord')
+let globe = document.querySelector('.menuGlobe')
 
         
 function timer() {
@@ -106,7 +107,7 @@ function hasWon(){
         console.log(picURL)
         holder.style.backgroundImage = `url(${picURL})`
         holder.innerHTML = ""
-        setTimeout(displayFunFact, 5*1000)
+        setTimeout(displayFunFact, 1.5*1000)
         totalCompleted+=1
         let progressBar = document.getElementById('prgrs')
         progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
@@ -273,6 +274,14 @@ function reShuffle(){
 
 shuffleBtn.addEventListener('click', reShuffle)
 hintBtn.addEventListener('click', giveHint)
+globe.addEventListener('click', toSceneSelector)
+
+function toSceneSelector(){
+    let sceneSelector = document.querySelector('.world')
+    sceneSelector.style.display = 'flex'
+    let playScene = document.querySelector('.bigNet')
+    playScene.style.display = 'none'
+}
 
 function giveHint(){
     //get remaining ltrs left to choose from
