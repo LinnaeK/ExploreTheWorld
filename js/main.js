@@ -50,6 +50,7 @@ let shuffleBtn = document.getElementById('shfl')
 let hintBtn = document.getElementById('hnt')
 let nextBtn = document.getElementById('nxtWord')
 let globe = document.querySelector('.menuGlobe')
+let displayPic = document.querySelector('.displayPic')
 
         
 function timer() {
@@ -57,14 +58,19 @@ function timer() {
         if(findingWord && time >= 0){
             if (time === 0){
                 console.log('reached 0')
-                newGame = true
-                renderNewScene()
+                displayPic.innerHTML = `<span class = warning>You ran out of time!<button class = 'close'>x</button></button></span>`
+                clearInterval(int)
+                setTimeout(() => {
+                    newGame = true
+                    renderNewScene()
+                },3000)
                 return
+            }else{
+                time-=1
+                let min = Math.floor(time/60)
+                let sec = time - (min*60)
+                document.getElementById('timer').innerHTML = `${min}:${sec}`|| clearInterval(int)
             }
-            time-=1
-            let min = Math.floor(time/60)
-            let sec = time - (min*60)
-            document.getElementById('timer').innerHTML = `${min}:${sec}`|| clearInterval(int)
         }
     }, 1000)
 
@@ -323,7 +329,9 @@ function giveHint(){
     }
     if(!destinationLoc.hasChildNodes()){
         destinationLoc.appendChild(hintLetterElem)
+        destinationLoc.className= 'holdingDiv'
     }
+    time -= 5
     hasWon()
 }
 
@@ -361,6 +369,7 @@ function nextAnimal(){
  nextBtn.addEventListener('click', nextAnimal)
 
  function renderNewScene(){
+     displayPic.innerHTML = '?'
      clearWord()
      if(newGame){
          console.log('new game '+newGame)

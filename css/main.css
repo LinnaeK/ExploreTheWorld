@@ -99,6 +99,26 @@ header{
     position:relative
 }
 
+.warning{
+    background-color: black;
+    height: 15vh;
+    width: 100vh;
+    font-size: 10vh;
+    position: absolute;
+    text-align: center;
+}
+
+.close{
+    padding: 0;
+    height: 4vh;
+    width: 4vh;
+    background-color: black;
+    color: white;
+    position: absolute; 
+    top: 0vh;
+    right: 0vh;
+}
+
 #fnFact{
     font-size: 3vh;
     background: rgb(5, 5, 5, 0.5);
@@ -114,6 +134,8 @@ header{
     /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
     background-size:100vh;
     display: flex;
+    /* text-align: center; */
+    
     justify-content: center;
     align-items: center;
     font-size: 20vh;
@@ -129,7 +151,7 @@ header{
 
 .displayFact{
     font-family:'Libre Franklin', sans-serif;
-    background-size:100vh;
+    background-size:80vh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
