@@ -2,6 +2,7 @@ body{
     font-family: 'Amatic SC', cursive;
 }
 
+/* Scene Selection */
 .world{
     display: flex;
     justify-content: center;
@@ -30,57 +31,31 @@ body{
     font-size: 1rem;
     padding: 1rem 1.5rem;
 }
+
 .worldPic{
     position: absolute;
     z-index: 0;
 }
 
+/* Playing view */
+.bigNet{
+    background-attachment: scroll;
+    width: 100%;
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Title/Header */
 .playingTitle{
-    font-size: 4rem;
+    font-size: 8vh;
 }
 
 header{
     width: 100%;
     display: flex;
     justify-content: space-between; 
-}
-
-button{
-    box-shadow: 0px 1px 4px  rgba(0, 0, 0, 0.6);
-    background-color:#dbe6c4;
-    transition: background-color .3s;
-	border:1px solid  black; 
-	cursor:pointer;
-    font-family:'Libre Franklin', sans-serif;
-	font-size:12px;
-	padding:12px 37px;
-    text-shadow:0px 1px 0px #ced9bf;
-    margin: .25rem;
-}
-
-button:disabled{
-    background-color: #79807e;
-background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-    text-shadow: none;
-}
-
-     
-
-.gamePrgrs{
-    display:flex;
-    width: 100%;
-    height: 2rem;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 .35rem;
-    background-color: black /*rgb(90, 62, 32)*/;
-    color: white;
-    letter-spacing: .1rem;
-}
-
-#buttonHolder{
-    display: flex;
 }
 
 .gameTitle{
@@ -91,25 +66,41 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
 }
 
 .title{
-    height: 2.5rem;
+    height: 5vh;
     margin: .25rem;
 }
 
 #slanting{
     transform: rotate(-30deg);
-    margin: 1rem .25rem 2rem
+    margin: -5vh 0.25vh 5vh
 }
+
+.menuGlobe{
+    height: 8vh;
+    margin: .25rem;
+}
+
+/* Progress bar */
+.gamePrgrs{
+    display:flex;
+    width: 100%;
+    font-size: 2.5vh;
+    height: 4vh;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 .35rem;
+    background-color: black /*rgb(90, 62, 32)*/;
+    color: white;
+    letter-spacing: .1rem;
+}
+
+/* Picture view */
 #picHolder{
     position:relative
 }
 
-.menuGlobe{
-    height: 6rem;
-    margin: .5rem;
-}
-
 #fnFact{
-    font-size: 1.5rem;
+    font-size: 3vh;
     background: rgb(5, 5, 5, 0.5);
     color: white;
     font-style: normal;
@@ -121,37 +112,36 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
     background-color: #79807e;
     background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
     /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-    background-size:contain;
+    background-size:100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 13rem;
+    font-size: 20vh;
     font-display: bold;
     border: 3px solid black;
     color: white;
-    width: 30rem;
-    height: 15rem;
-    margin: 2rem;
+    width: 60vh;
+    height: 35vh;
+    margin: 1rem;
     padding: 2rem;
 }
 
 
 .displayFact{
     font-family:'Libre Franklin', sans-serif;
+    background-size:100vh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    font-size: 2rem;
+    font-size: 4vh;
     font-display: bold;
     border: 3px solid black;
     color:black;
-    width: 30rem;
-    height: 18rem;
-    margin: 2rem;
+    width: 60vh;
+    height: 35vh;
+    margin: 1rem;
     padding: 2rem;
 }
-
-
 
 #funFact{
     bottom: 0;
@@ -164,26 +154,30 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
 #animalPic{
     box-shadow: 0px 0px 0px 2px #f2fadc;
     text-align: center;
-    width: 30rem;
-    height: 15rem;
+    width: 60vh;
+    height: 40vh;
     margin: 2rem;
-
+    
 }
+
+/* Scrabble letter display */
 #letters{
     display: flex;
     flex-direction: row;
 }
 
 .holdingDiv{
-    height: 4.25rem;
-    width: 4.25rem;
-    margin: 2px;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    width: 10vh;
+    margin: 0vh 1.25vh;
 }
 
 .ltr, .droppedLtr {
-    height: 4rem;
-    width:4rem;
-    margin: 4px;
+    height: 10vh;
+    width:10vh;
+    /* margin: 0vh 1.25vh; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -200,9 +194,9 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
     margin: 1rem;
 }
 .word{
-    height: 4.25rem;
-    width: 4.25rem;
-    margin: 2px;
+    height: 10vh;
+    width: 10vh;
+    margin: 0vh 1.25vh;
     display: flex;
     justify-content: center;
     align-content: end;
@@ -213,12 +207,27 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
     display: none;
 }
 
-.bigNet{
-    background-attachment: scroll;
-    width: 100%;
-    height: 150vh;
+/* Buttons */
+button{
+    box-shadow: 0px 1px 4px  rgba(0, 0, 0, 0.6);
+    background-color:#dbe6c4;
+    transition: background-color .3s;
+	border:1px solid  black; 
+	cursor:pointer;
+    font-family:'Libre Franklin', sans-serif;
+	font-size:2vh;
+	padding:2vh 6vh;
+    text-shadow:0px 1px 0px #ced9bf;
+    margin: .5vh;
+}
+
+button:disabled{
+    background-color: #79807e;
+background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    text-shadow: none;
+}
+
+#buttonHolder{
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    /* background-color: tan; */
 }

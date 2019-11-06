@@ -25,7 +25,7 @@ let world ={
         {name:'IGUANA', photo:'assets/Animals/iguana-223157_640.jpg', funFact:'Green iguanas are tough. They can drop from a branch 40 feet in the air, hit the ground, and still survive.',},
         {name:'ANACONDA', photo:'assets/Animals/anaconda-600096_640.jpg', funFact:'Female green anacondas are the larger sex in this species, and have been observed eating meeker males, generally during mating season.',},
         {name: 'SLOTH', photo:'assets/Animals/sloth-1879999_640.jpg', funFact:'These animals urinate and deficate only once a week and always in the same place.',},
-        {name:'JAGUAR', photo:'assets/Animals/animal-2607_640.jpg', funFact:'Not afraid of water, Jaguar\'s are known to swim across teh Panama Canal.',},
+        {name:'JAGUAR', photo:'assets/Animals/animal-2607_640.jpg', funFact:'Not afraid of water, Jaguar\'s are known to swim across the Panama Canal.',},
         {name:'GORILLA', photo:'assets/Animals/gorilla-3606721_640.jpg', funFact: 'Gorillas have a bite force of around 1300psi - twice that of a lion.',},
         ]}
 
