@@ -60,14 +60,20 @@ function timer() {
             if (time === 0){
                 console.log('reached 0')
                 displayPic.innerHTML = `<span class = 'warning'>You ran out of time!<button class = 'close'>x</button></button></span>`
+                let ltrs = document.querySelectorAll('.ltr')
+                ltrs.forEach(function(ltr){ ltr.draggable = false})
+                let droppedLtrs = document.querySelectorAll('.droppedLtr')
+                droppedLtrs.forEach(function(ltr){ ltr.draggable = false})
                 clearInterval(int)
                 setTimeout(() => {
                     time = 45
                     timer(time)
                     newGame = true
+                    ltrs.forEach(function(ltr){ ltr.draggable = true})
+                    droppedLtrs.forEach(function(ltr){ ltr.draggable = true})
                     closeAlert()
                     renderNewScene()
-                },30000)
+                },3000)
                 return
             }else{
                 time-=1
