@@ -108,6 +108,11 @@ header{
     text-align: center;
 }
 
+#win{
+    color: white;
+    font-size: 5vh;
+}
+
 .close{
     padding: 0;
     height: 4vh;

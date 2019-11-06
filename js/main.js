@@ -51,6 +51,7 @@ let hintBtn = document.getElementById('hnt')
 let nextBtn = document.getElementById('nxtWord')
 let globe = document.querySelector('.menuGlobe')
 let displayPic = document.querySelector('.displayPic')
+let alertBtn = document.querySelector('.close')
 
         
 function timer() {
@@ -58,14 +59,15 @@ function timer() {
         if(findingWord && time >= 0){
             if (time === 0){
                 console.log('reached 0')
-                displayPic.innerHTML = `<span class = warning>You ran out of time!<button class = 'close'>x</button></button></span>`
+                displayPic.innerHTML = `<span class = 'warning'>You ran out of time!<button class = 'close'>x</button></button></span>`
                 clearInterval(int)
                 setTimeout(() => {
                     time = 45
                     timer(time)
                     newGame = true
+                    closeAlert()
                     renderNewScene()
-                },3000)
+                },30000)
                 return
             }else{
                 time-=1
@@ -121,8 +123,10 @@ function hasWon(){
         progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
         // pic.src = array[arrPos].photo
     }else if(guessedWord.length === currentWord.length){
+        displayPic.innerHTML = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
         clearWord()
         dsplWrd(shuffle(currentWord))
+        setTimeout(closeAlert, 3000)
     }
 }
 
@@ -283,6 +287,13 @@ function reShuffle(){
 shuffleBtn.addEventListener('click', reShuffle)
 hintBtn.addEventListener('click', giveHint)
 globe.addEventListener('click', toSceneSelector)
+alertBtn.addEventListener('click', closeAlert)
+
+
+function closeAlert(){
+    console.log('button clicked')
+    displayPic.innerHTML = '?'
+}
 
 function toSceneSelector(){
     let sceneSelector = document.querySelector('.world')
@@ -356,13 +367,16 @@ function nextAnimal(){
         //  totalCompleted+= 1
         renderWord()
     }else{
-        let playScene = document.querySelector('.bigNet')
-        playScene.style.display = 'none'
-        let sceneSelector = document.querySelector('.world')
-        sceneSelector.style.display = 'flex'
-        newGame = true
-        renderNewScene()
-        console.log('finished scene')
+        displayPic.innerHTML = `<span class = 'warning' id = 'win'>Congratulations! You finished the ${scene} animals. <br> You earned ${points} points.<button class = 'close'>x</button></button></span>`
+        setTimeout(()=> { 
+            let playScene = document.querySelector('.bigNet')
+            playScene.style.display = 'none'
+            let sceneSelector = document.querySelector('.world')
+            sceneSelector.style.display = 'flex'
+            newGame = true
+            renderNewScene()
+            console.log('finished scene')
+        }, 3*1000)
     }
 }
 
@@ -371,7 +385,7 @@ function nextAnimal(){
  nextBtn.addEventListener('click', nextAnimal)
 
  function renderNewScene(){
-     displayPic.innerHTML = '?'
+     displayPic.innerHTML = `?`
      clearWord()
      if(newGame){
          console.log('new game '+newGame)
