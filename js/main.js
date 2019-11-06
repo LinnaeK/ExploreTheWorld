@@ -61,6 +61,8 @@ function timer() {
                 displayPic.innerHTML = `<span class = warning>You ran out of time!<button class = 'close'>x</button></button></span>`
                 clearInterval(int)
                 setTimeout(() => {
+                    time = 45
+                    timer(time)
                     newGame = true
                     renderNewScene()
                 },3000)
