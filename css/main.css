@@ -28,13 +28,17 @@ body{
     background:rgba(255,255,255,0.5);
     box-shadow: 0px;
     color: black;
-    font-size: 1rem;
-    padding: 1rem 1.5rem;
+    font-size: 2vh;
+    padding: 2vh 3vh;
 }
 
 .worldPic{
+    /* display: flex; */
+    /* justify-content: center;  */
+    /* justify-self: center; */
     position: absolute;
     z-index: 0;
+    width: 100%;
 }
 
 /* Playing view */
@@ -257,4 +261,11 @@ background-image: url("https://www.transparenttextures.com/patterns/45-degree-fa
 
 #buttonHolder{
     display: flex;
+}
+
+@media(max-width: 400){
+    .gameTitle{
+        height: 400px;
+        color: pink;
+    }
 }

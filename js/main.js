@@ -29,8 +29,6 @@ let world ={
         {name:'GORILLA', photo:'assets/Animals/gorilla-3606721_640.jpg', funFact: 'Gorillas have a bite force of around 1300psi - twice that of a lion.',},
         ]}
 
-//constants
-
 // state variables
 let mvdLtr = ""
 let orgParent
@@ -52,127 +50,21 @@ let nextBtn = document.getElementById('nxtWord')
 let globe = document.querySelector('.menuGlobe')
 let displayPic = document.querySelector('.displayPic')
 let alertBtn = document.querySelector('.close')
+let flipableButtons = [nextBtn, hintBtn, shuffleBtn]
+let btnHolder = document.getElementById('buttonHolder')
 
-        
-function timer() {
-    var int = setInterval(function() {
-        if(findingWord && time >= 0){
-            if (time === 0){
-                console.log('reached 0')
-                displayPic.innerHTML = `<span class = 'warning'>You ran out of time!<button class = 'close'>x</button></button></span>`
-                let ltrs = document.querySelectorAll('.ltr')
-                ltrs.forEach(function(ltr){ ltr.draggable = false})
-                let droppedLtrs = document.querySelectorAll('.droppedLtr')
-                droppedLtrs.forEach(function(ltr){ ltr.draggable = false})
-                clearInterval(int)
-                setTimeout(() => {
-                    time = 45
-                    timer(time)
-                    newGame = true
-                    ltrs.forEach(function(ltr){ ltr.draggable = true})
-                    droppedLtrs.forEach(function(ltr){ ltr.draggable = true})
-                    closeAlert()
-                    renderNewScene()
-                },3000)
-                return
-            }else{
-                time-=1
-                let min = Math.floor(time/60)
-                let sec = time - (min*60)
-                document.getElementById('timer').innerHTML = `${min}:${sec}`|| clearInterval(int)
-            }
-        }
-    }, 1000)
-
-}
-        
-function getArray(scene){
-    let arry
-    switch(scene){
-    case 'mountain':
-        arry = world.mountain
-        break
-    case 'savanna':
-        arry = world.savanna
-        break
-    case 'jungle':
-        arry = world.jungle
-        break
-    }
-    return arry;
-}
+// event listeners
+btnHolder.addEventListener('click', startRender)
+nextBtn.addEventListener('click', nextAnimal)
+shuffleBtn.addEventListener('click', ()=> renderWord(shuffle(world[scene][totalCompleted].name)))
+hintBtn.addEventListener('click', giveHint)
+globe.addEventListener('click', toSceneSelector)
+alertBtn.addEventListener('click', closeAlert)
 
 
-function hasWon(){
-    console.log(newGame)
-    let guessedWord = ""
-    let guessedLetters = document.querySelectorAll('.droppedLtr')
-    // console.log(guessedLetters[0].id[0])
-    for(let i = 0; i < guessedLetters.length; i++){
-        guessedWord += guessedLetters[i].id[0]
-    }
-    if (guessedWord === currentWord){
-        shuffleBtn.disabled = true
-        hintBtn.disabled = true
-        calculatePoints()
-        findingWord = false
-        let array = getArray(scene)
-        let holder = document.querySelector('.displayPic')
-        holder.className = 'displayFact'
-        let picURL = array[totalCompleted].photo
-        console.log(picURL)
-        holder.style.backgroundImage = `url(${picURL})`
-        holder.innerHTML = ""
-        setTimeout(displayFunFact, 1.5*1000)
-        totalCompleted+=1
-        let progressBar = document.getElementById('prgrs')
-        progressBar.innerHTML = `${totalCompleted}/${world.mountain.length}`
-        // pic.src = array[arrPos].photo
-    }else if(guessedWord.length === currentWord.length){
-        displayPic.innerHTML = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
-        clearWord()
-        dsplWrd(shuffle(currentWord))
-        setTimeout(closeAlert, 3000)
-    }
-}
-
-function displayFunFact(){
-    nextBtn.disabled = false
-    let displayPic = document.querySelector('.displayFact')
-    let funFactDisp = getArray(scene)[totalCompleted-1].funFact
-    displayPic.innerHTML = `<span id = 'fnFact' >${funFactDisp}</span>`
-    // displayPic.style.opacity = '0.6'
-}
-
-function calculatePoints(){
-    console.log('got to calculate points')
-    console.log(typeof(time))
-    switch (true) {
-        case (time<15):
-            console.log('<15')
-            points+=1
-            break;
-        case (time<30):
-            console.log('<30')
-            points+=2
-            break;
-        case (time<45):
-            console.log('<45')
-            points+=3
-            break;
-
-    }
-    console.log(points)
-    let pointCounter = document.getElementById('pnts')
-    pointCounter.innerHTML = `Points: ${points}`
-}
-
-function storeData(event){
-    event.dataTransfer.setData('text', event.target.id)
-}
-
-//drag and drop functions
-let onDragStart = function(event){
+// events related to dragging and dropping
+function onDragStart(event){
+    console.log('onDragStart')
     id = event.target.id
     mvdLtr= event.target.id
     event.target.className = 'invisible'
@@ -181,19 +73,15 @@ let onDragStart = function(event){
     } 
 }
 
-let onDragEnd = function(event){
-
-}
-
-let onDragOver = function(event) {
+// prevents default when dragged over
+function onDragOver(event) {
+    console.log('onDragOver')
     event.preventDefault()
 }
 
-let onDrop = function(event) {
+//when element dropped on div, the div attaches the element to itself
+function onDrop(event) {
     event.preventDefault()
-    // var data = event.dataTransfer.getData('text')
-    // console.log('we got: ', data)
-    // console.log('I tried this: ' + id)
     const draggedLtr = document.getElementById(mvdLtr) 
     draggedLtr.AllowDrop = false
     const wrdHolder = document.getElementById(event.target.id)
@@ -203,12 +91,13 @@ let onDrop = function(event) {
     draggedLtr.classList.remove('invisible')
 }
 
-function onBodyDrop(event){
-    let ltr = document.getElementById(mvdLtr)
-    ltr.classList.remove('invisble')
-    console.log('triggered')
-}
-
+// function onBodyDrop(event){
+    //     let ltr = document.getElementById(mvdLtr)
+    //     ltr.classList.remove('invisble')
+    // }
+    
+    
+// if letter dropped on element it is returned to origin and made visible
 function returnDrop(event){
     event.preventDefault()
     ltr = document.getElementById(mvdLtr)
@@ -220,95 +109,35 @@ function returnDrop(event){
     return false
 }
 
+// prevents default if dragged over and returns false
 function returnDrag(event){
     event.preventDefault()
     return false
 }
 
-function clearWord(){
-    console.log('cleared word')
-    ltrs.innerHTML = ""
-    wrd.innerHTML = ""
-}
 
-//displays letters and boxes to receive letters
- function dsplWrd(word){ 
-     console.log('got to dsplword')
-    // displays letters
-    for(let i = 0; i < word.length; i++){
-        holdingDiv = document.createElement('div')
-        holdingDiv.className = "holdingDiv"
-        img = document.createElement('img')
-        img.src = `assets/Alphabet/${word[i]}.png`
-        img.className = 'ltr'
-        img.id = word[i]+i
-        img.setAttribute("ondrag", "onDragStart(event)")
-        img.addEventListener('onDrag', onDragStart)
-        img.draggable="true"
-        holdingDiv.append(img)
-        ltrs.append(holdingDiv)
-    }
+//functions called by eventlisteners
+// function reShuffle(){
+//     console.log('reShuffle')
+//     clearWord()
+//     renderWord()
+// }
 
-    //receives letters
-    for(let i = 0; i < word.length; i++){
-        newDiv = document.createElement('div')
-        newDiv.className = 'word'
-        newDiv.innerHTML = ""
-        newDiv.id = 'll'+i
-        newDiv.setAttribute('ondragover', 'onDragOver(event)')
-        newDiv.setAttribute('ondrop', 'onDrop(event)')
-        wrd.append(newDiv)
-    }
-}
-
-//shuffles letters of incoming word
-let shuffle = function(word){
-    let arr = word.split(""),
-    len = arr.length;
-
-    for (let i = len -1; i > 0; i--){
-        let slctNum = Math.floor(Math.random() * (i + 1))
-        let tmp = arr[i]
-        arr[i] = arr[slctNum]
-        arr[slctNum] = tmp
-    }
-    return arr.join("")
-}
-
-function renderWord(){
-    findingWord = true
-    array = getArray(scene)
-    word = array[totalCompleted].name
-    currentWord = word
-    let scrambledWrd = shuffle(word)
-
-    dsplWrd(scrambledWrd)
-}
-
-function reShuffle(){
-    clearWord()
-    renderWord()
-}
-
-shuffleBtn.addEventListener('click', reShuffle)
-hintBtn.addEventListener('click', giveHint)
-globe.addEventListener('click', toSceneSelector)
-alertBtn.addEventListener('click', closeAlert)
-
-
+// closes alert
 function closeAlert(){
-    console.log('button clicked')
-    displayPic.innerHTML = '?'
+    renderPicture("?", false)
 }
 
+// displays scene selection and prepares for a new game
 function toSceneSelector(){
-    let sceneSelector = document.querySelector('.world')
-    sceneSelector.style.display = 'flex'
-    let playScene = document.querySelector('.bigNet')
-    playScene.style.display = 'none'
+    togglePages('.world', '.bigNet')
+    newGame = true
+    renderNewScene()
 }
 
+//provides user with a letter in the correct position
 function giveHint(){
+    console.log('giveHint')
     //get remaining ltrs left to choose from
     let ltrList = document.querySelectorAll('.ltr')
     //get random number with which to select hint letter
@@ -319,7 +148,7 @@ function giveHint(){
     let hintLetterElem = document.getElementById(ltrList[rndmNumber].id)
     hintLetterElem.className = 'droppedLtr'
     //get current array
-    let curArray = getArray(scene)
+    let curArray = world[scene]
     //get animalName
     let animalName = curArray[totalCompleted].name
     //create an array of positions of hintLetter
@@ -354,99 +183,258 @@ function giveHint(){
     hasWon()
 }
 
+// proceeds to next animal in array. Congrats user if scene is completed.
 function nextAnimal(){
-    nextBtn.disabled = true
-    hintBtn.disabled = false
-    shuffleBtn.disabled = false
-    console.log('In next animal: ' + totalCompleted)
-    let displayPic = document.querySelector('.displayFact')
-    displayPic.style.opacity = '1'
-    displayPic.innerHTML = '?'
-    displayPic.className = 'displayPic'
-    let grayBackground = "https://www.transparenttextures.com/patterns/45-degree-fabric-light.png"
-    displayPic.style.backgroundImage = `url(${grayBackground})`
-    displayPic.style.backgroundColor = '#79807e';
+    flipButtons(hintBtn, shuffleBtn, nextBtn)
+    renderPicture("?", false)
      clearWord()
-     if(totalCompleted < getArray(scene).length){
+     if(totalCompleted < world[scene].length){
          time = 45
          findingWord = true
-        //  totalCompleted+= 1
         renderWord()
     }else{
-        displayPic.innerHTML = `<span class = 'warning' id = 'win'>Congratulations! You finished the ${scene} animals. <br> You earned ${points} points.<button class = 'close'>x</button></button></span>`
+        let congrats = `<span class = 'warning' id = 'win'>Congratulations! You finished the ${scene} animals. <br> You earned ${points} points.<button class = 'close'>x</button></button></span>`
+        
+        renderAlert(congrats)
         setTimeout(()=> { 
-            let playScene = document.querySelector('.bigNet')
-            playScene.style.display = 'none'
-            let sceneSelector = document.querySelector('.world')
-            sceneSelector.style.display = 'flex'
             newGame = true
+
+            togglePages('.world', '.bigNet')
             renderNewScene()
-            console.log('finished scene')
         }, 3*1000)
     }
 }
 
+//progress functions
+// calculate points based upon time remaining
+function calculatePoints(){
+    switch (true) {
+        case (time<15):
+            console.log('<15')
+            points+=1
+            break;
+        case (time<30):
+            console.log('<30')
+            points+=2
+            break;
+        case (time<45):
+            console.log('<45')
+            points+=3
+            break;
 
- // event listeners
- nextBtn.addEventListener('click', nextAnimal)
+    }
+    updateProgress('pnts', `Points: ${points}`)
+}
 
- function renderNewScene(){
-     displayPic.innerHTML = `?`
+//decrements as user is playing. Stops game if user runs out of time. 
+function timer() {
+    const int = setInterval(function() {
+        if(findingWord && time >= 0){
+            if (time === 0){
+                let timeAlert = `<span class = 'warning'>You ran out of time!<button class = 'close'>x</button></button></span>` 
+                
+                renderAlert(timeAlert)
+                draggableLetters(false)
+                clearInterval(int)
+                setTimeout(() => {
+                    time = 45
+                    newGame = true
+                    
+                    timer(time)
+                    draggableLetters(true)
+                    closeAlert()
+                    renderNewScene()
+                },3000)
+                return
+            }else{
+                time-=1
+                let min = Math.floor(time/60)
+                let sec = time - (min*60)
+                document.getElementById('timer').innerHTML = `${sec}`|| clearInterval(int)
+            }
+        }
+    }, 1000)
+
+}
+
+// toggles letter between draggable or not depending upon provided boolean
+function draggableLetters(bool){
+    let ltrs = document.querySelectorAll('.ltr')
+    ltrs.forEach(function(ltr){ ltr.draggable = bool})
+    let droppedLtrs = document.querySelectorAll('.droppedLtr')
+    droppedLtrs.forEach(function(ltr){ ltr.draggable = bool})
+}
+        
+
+// game functions
+// verifies if user order letters correctly
+function hasWon(){
+    let guessedWord = ""
+    let guessedLetters = document.querySelectorAll('.droppedLtr')
+    for(let i = 0; i < guessedLetters.length; i++){
+        guessedWord += guessedLetters[i].id[0]
+    }
+    if (guessedWord === currentWord){
+        findingWord = false
+        totalCompleted+=1
+
+        flipButtons(hintBtn, shuffleBtn)
+        updateProgress('prgrs', `${totalCompleted}/${world.mountain.length}`)
+        renderPicture('', true)
+        calculatePoints()
+        setTimeout(displayFunFact, 1.5*1000)
+    }else if(guessedWord.length === currentWord.length){
+        let tryAgain = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
+        renderAlert(tryAgain)
+        clearWord()
+        dsplWrd(shuffle(currentWord))
+        setTimeout(closeAlert, 3000)
+    }
+}
+
+// displays fun fact
+function displayFunFact(){
+    flipButtons(nextBtn)
+    let funFactDisp = world[scene][totalCompleted-1].funFact
+    displayPic.innerHTML = `<span id = 'fnFact' >${funFactDisp}</span>`
+}
+
+// clears letters from screen
+function clearWord(){
+    ltrs.innerHTML = ""
+    wrd.innerHTML = ""
+}
+
+// shuffles and displays the letters on screen
+function renderWord(){
+    findingWord = true
+    currentWord = world[scene][totalCompleted].name
+    dsplWrd(shuffle(currentWord))
+}
+
+//displays letters and boxes to receive letters
+function dsplWrd(word){ 
+   // displays letters
+   for(let i = 0; i < word.length; i++){
+       holdingDiv = document.createElement('div')
+       holdingDiv.className = "holdingDiv"
+       img = document.createElement('img')
+       img.src = `assets/Alphabet/${word[i]}.png`
+       img.className = 'ltr'
+       img.id = word[i]+i
+       img.setAttribute("ondrag", "onDragStart(event)")
+       img.addEventListener('onDrag', onDragStart)
+       img.draggable="true"
+       holdingDiv.append(img)
+       ltrs.append(holdingDiv)
+   }
+
+   //receives letters
+   for(let i = 0; i < word.length; i++){
+       newDiv = document.createElement('div')
+       newDiv.className = 'word'
+       newDiv.innerHTML = ""
+       newDiv.id = 'll'+i
+       newDiv.setAttribute('ondragover', 'onDragOver(event)')
+       newDiv.setAttribute('ondrop', 'onDrop(event)')
+       wrd.append(newDiv)
+   }
+}
+
+// shuffles letters
+function shuffle(word){
+    console.log("this is a test: " + world[scene][totalCompleted].name)
+    console.log(word)
+    clearWord()
+    let arr = word.split(""),
+    len = arr.length;
+
+    for (let i = len -1; i > 0; i--){
+        let slctNum = Math.floor(Math.random() * (i + 1))
+        let tmp = arr[i]
+        arr[i] = arr[slctNum]
+        arr[slctNum] = tmp
+    }
+    return arr.join("")
+}
+
+// renders alert
+function renderAlert(alert){
+    displayPic.innerHTML = alert
+}
+
+// renders picture
+function renderPicture(innerHTML, foundWord){
+    if(foundWord){
+        displayPic.className = 'displayFact'
+        displayPic.style.backgroundImage = `url(${world[scene][totalCompleted-1].photo})`
+        displayPic.innerHTML = innerHTML
+    }else{
+        let grayBackground = "https://www.transparenttextures.com/patterns/45-degree-fabric-light.png"
+        displayPic.style.backgroundImage = `url(${grayBackground})`
+        displayPic.className = 'displayPic'
+        displayPic.innerHTML = innerHTML
+    }
+
+}
+
+// calls functions to render game
+function startRender(evt){
+    newGame = false
+    scene = evt.target.id
+
+    clearWord()
+    togglePages('.bigNet', '.world')
+    updateProgress('prgrs', `${totalCompleted}/${world[scene].length}`)
+    renderWord()
+}
+
+// updates visible variables tracking game progress
+function updateProgress(id, innerHTML){
+    let elem = document.getElementById(id)
+    elem.innerHTML = innerHTML
+}
+
+// calls functions to render a scene
+function renderNewScene(){
+     togglePages('.world', '.bigNet')
      clearWord()
+
      if(newGame){
-         console.log('new game '+newGame)
-        points = 0
-        totalCompleted = 0
-        time = 45
-        console.log(scene)
-        let sceneArr = getArray(scene)
-        let progress = document.getElementById('prgrs')
-        console.log(prgrs)
-        progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
-        newGame = false
+         points = 0
+         totalCompleted = 0
+         time = 45
+         newGame = false
+
+        renderPicture("?", false)
         renderWord()
      }
 
-    let pointCounter = document.getElementById('pnts')
-    pointCounter.innerHTML = `Points: ${points}`
-
-    
-    let btnHolder = document.getElementById('buttonHolder')
-    btnHolder.addEventListener('click', function(evt){
-        clearWord()
-        let sceneSelector = document.querySelector('.world')
-        sceneSelector.style.display = 'none'
-        let playScene = document.querySelector('.bigNet')
-        playScene.style.display = 'flex'
-        newGame = false
-        scene = evt.target.id
-        let sceneArr = getArray(scene)
-        let progress = document.getElementById('prgrs')
-        console.log(prgrs)
-        progress.innerHTML = `${totalCompleted}/${sceneArr.length}`
-        renderWord()
-    })
-
+     updateProgress('pnts', `Points: ${points}`)
  }
 
+//  switches visibility between pages
+function togglePages(on, off){
+    let visibleScene = document.querySelector(on)
+    visibleScene.style.display = 'flex'
+    let hiddenScene = document.querySelector(off)
+    hiddenScene.style.display = 'none'
+}
+
+// starts game
 function init(){
     timer(time)
-    let playScene = document.querySelector('.bigNet')
-    playScene.style.display = 'none'
-    nextBtn.disabled = true
+    flipButtons(nextBtn)
     renderNewScene()
-    
-    
-    //get scene array
-    //get word
-    //make scrambled word
-    //display letters and empty slots
 
 
 }
 
+// flips buttons disabled property
+function flipButtons(...args) {
+    args.forEach(item => item.disabled = !item.disabled)
+}
+
 
 init()
-
-// dsplWrd(shuffle(world.jungle[arrPos].name))
 
