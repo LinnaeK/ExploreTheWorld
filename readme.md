@@ -1,6 +1,7 @@
-# Explore the World
+![menu screen](assets/Screen Shot 2019-11-07 at 10.53.37 PM.png)
+# [Explore the World](https://linnaek.github.io/ExploreTheWorld/)
 
-Select your region of choice and face animals like you have never seen before. You will be provided with the letters for each animal, but they will be all scrambled up. It will be your job to figure out the correct order of the letters. Once the letters are ordered you will be provided with a picture of the animal along with an interesting fact regarding them. But hurry, you have to solve out all eight animals in a region before the timer runs out or else you will have to start all over again! 
+Select your region of choice and face animals like you have never seen before. You will be provided with the letters for each animal, but they will be all scrambled up. It will be your job to figure out the correct order of the letters. Once the letters are ordered you will be provided with a picture of the animal along with an interesting fact regarding them. But hurry, you have to solve each of the eight animals in a region before the timer runs out or else you will have to start all over again! 
 
 ## User Stories
 
@@ -19,15 +20,20 @@ Select your region of choice and face animals like you have never seen before. Y
 
 ### Home Page
 #### User can select region in which to play
-![alt text](assets/20191101_131500.jpg)
 
+![alt text](assets/20191101_131500.jpg)
 ### Playing Page
 #### User unscrambles letter in order to see picture and information regarding the animal
-
 ![alt text](assets/20191101_131446.jpg)
-
+![playing view](assets/Screen Shot 2019-11-07 at 10.54.30 PM.png)
+![completed word](assets/Screen Shot 2019-11-07 at 10.54.57 PM.png)
 ### Technology Used
 
 * HTML
 * CSS
 * JavaScript
+
+## Next Steps
+* Mobile Friendly
+* Random order of animals for each scene
+* Notice when user makes an incorrect play for each letter (instead of each word)
