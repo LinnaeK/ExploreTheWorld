@@ -269,7 +269,7 @@ function hasWon(){
         updateProgress('prgrs', `${totalCompleted}/${world.mountain.length}`)
         renderPicture('', true)
         calculatePoints()
-        setTimeout(displayFunFact, .5*1000)
+        displayFunFact()
     }else if(guessedWord.length === currentWord.length){
         let tryAgain = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
         time += 20
