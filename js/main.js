@@ -37,8 +37,9 @@ let currentWord
 let points = 0
 let totalCompleted = 0
 let newGame = true
-let time = 45
+let time = 9000
 let findingWord
+let mvdLtrParent = ""
 
 // cached elements 
 let ltrs = document.getElementById('letters')
@@ -61,12 +62,13 @@ hintBtn.addEventListener('click', giveHint)
 globe.addEventListener('click', toSceneSelector)
 alertBtn.addEventListener('click', closeAlert)
 
-
 // events related to dragging and dropping
+// saves variable's id and its parent's id when started moving
 function onDragStart(event){
-    console.log('onDragStart')
     id = event.target.id
     mvdLtr= event.target.id
+
+    mvdLtrParent = event.target.parentNode.id
     event.target.className = 'invisible'
     if(event.target.parentNode.id[0] ==='l'){
         event.target.parentNode.className = 'word';
@@ -75,7 +77,6 @@ function onDragStart(event){
 
 // prevents default when dragged over
 function onDragOver(event) {
-    console.log('onDragOver')
     event.preventDefault()
 }
 
@@ -90,12 +91,6 @@ function onDrop(event) {
     wrdHolder.className = 'holdingDiv'
     draggedLtr.classList.remove('invisible')
 }
-
-// function onBodyDrop(event){
-    //     let ltr = document.getElementById(mvdLtr)
-    //     ltr.classList.remove('invisble')
-    // }
-    
     
 // if letter dropped on element it is returned to origin and made visible
 function returnDrop(event){
@@ -103,8 +98,12 @@ function returnDrop(event){
     ltr = document.getElementById(mvdLtr)
     ltr.classList.remove('invisible')
     ltr.className = 'droppedLtr'
-    ltr.parentNode.append(ltr)
-    ltr.parentNode.className = 'holdingDiv'
+    if(event.target.id[0] !== "l"){
+        let parent = document.getElementById(mvdLtrParent)
+        parent.append(ltr)
+    }
+    parent.className = 'holdingDiv'
+
     hasWon()
     return false
 }
@@ -114,14 +113,6 @@ function returnDrag(event){
     event.preventDefault()
     return false
 }
-
-
-//functions called by eventlisteners
-// function reShuffle(){
-//     console.log('reShuffle')
-//     clearWord()
-//     renderWord()
-// }
 
 // closes alert
 function closeAlert(){
@@ -137,7 +128,6 @@ function toSceneSelector(){
 
 //provides user with a letter in the correct position
 function giveHint(){
-    console.log('giveHint')
     //get remaining ltrs left to choose from
     let ltrList = document.querySelectorAll('.ltr')
     //get random number with which to select hint letter
@@ -164,7 +154,6 @@ function giveHint(){
     //check to see if destinationLoc already has a letter. If it does, try a position or return wrong letter to selection options
     if(destinationLoc.hasChildNodes()){
         while(destinationLoc.hasChildNodes()){
-            console.log('destination loc check started: '+ locOfLetter, locOfLetterPos)
             if((destinationLoc.firstChild.id[0]) === hintLetter){
                 locOfLetterPos += 1
                 destinationLoc = document.getElementById('word').childNodes[locOfLetter[locOfLetterPos]]
@@ -210,15 +199,12 @@ function nextAnimal(){
 function calculatePoints(){
     switch (true) {
         case (time<15):
-            console.log('<15')
             points+=1
             break;
         case (time<30):
-            console.log('<30')
             points+=2
             break;
         case (time<45):
-            console.log('<45')
             points+=3
             break;
 
@@ -285,6 +271,7 @@ function hasWon(){
         setTimeout(displayFunFact, 1.5*1000)
     }else if(guessedWord.length === currentWord.length){
         let tryAgain = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
+        time += 20
         renderAlert(tryAgain)
         clearWord()
         dsplWrd(shuffle(currentWord))
@@ -318,11 +305,14 @@ function dsplWrd(word){
    for(let i = 0; i < word.length; i++){
        holdingDiv = document.createElement('div')
        holdingDiv.className = "holdingDiv"
+       holdingDiv.id = "hd" + i
        img = document.createElement('img')
        img.src = `assets/Alphabet/${word[i]}.png`
        img.className = 'ltr'
        img.id = word[i]+i
        img.setAttribute("ondrag", "onDragStart(event)")
+       img.setAttribute("ondrop", "returnDrop(event)")
+       img.setAttribute("ondragover", "returnDrag(event)")
        img.addEventListener('onDrag', onDragStart)
        img.draggable="true"
        holdingDiv.append(img)
@@ -343,8 +333,6 @@ function dsplWrd(word){
 
 // shuffles letters
 function shuffle(word){
-    console.log("this is a test: " + world[scene][totalCompleted].name)
-    console.log(word)
     clearWord()
     let arr = word.split(""),
     len = arr.length;
@@ -403,7 +391,7 @@ function renderNewScene(){
      if(newGame){
          points = 0
          totalCompleted = 0
-         time = 45
+         time = 9000
          newGame = false
 
         renderPicture("?", false)
@@ -434,7 +422,6 @@ function init(){
 function flipButtons(...args) {
     args.forEach(item => item.disabled = !item.disabled)
 }
-
 
 init()
 
