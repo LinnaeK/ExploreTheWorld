@@ -13,10 +13,9 @@ Select your region of choice and face animals like you have never seen before. Y
 * see a photo and interesting fact regarding the animal once I have put letters in the correct order
 * see how many animals I have solved out of the entire region
 * accrue points by how fast I put letters in the correct order
-* loose points by submitting an incorrect word
 * select a button to reorder the letters
 * ask for a hint and have one letter put in the correct place
-* be congratulated when I have completed a region and see the number of points I acrued and how fast I completed it
+* be congratulated when I have completed a region and see the number of points I acrued 
 
 ### Home Page - wireframe 
 #### User can select region in which to play
@@ -31,6 +30,10 @@ Select your region of choice and face animals like you have never seen before. Y
 
 ### Word Completion
 ![completed word](assets/correctWordView.png)
+
+### Getting Started
+Unscramble the letters. If you get stuck, use the shuffle button to see them from a different perspective. If you need even more help, use the hint button - just beware, your remaining time reduces each time you use the hint button. Have fun!
+[Explore the World](https://linnaek.github.io/ExploreTheWorld/)
 
 ### Technology Used
 
