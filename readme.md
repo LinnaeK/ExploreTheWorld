@@ -1,4 +1,4 @@
-![menu screen](assets/Screen Shot 2019-11-07 at 10.53.37 PM.png)
+![menu screen](assets/menu.png)
 # [Explore the World](https://linnaek.github.io/ExploreTheWorld/)
 
 Select your region of choice and face animals like you have never seen before. You will be provided with the letters for each animal, but they will be all scrambled up. It will be your job to figure out the correct order of the letters. Once the letters are ordered you will be provided with a picture of the animal along with an interesting fact regarding them. But hurry, you have to solve each of the eight animals in a region before the timer runs out or else you will have to start all over again! 
@@ -18,15 +18,20 @@ Select your region of choice and face animals like you have never seen before. Y
 * ask for a hint and have one letter put in the correct place
 * be congratulated when I have completed a region and see the number of points I acrued and how fast I completed it
 
-### Home Page
+### Home Page - wireframe 
 #### User can select region in which to play
 
 ![alt text](assets/20191101_131500.jpg)
-### Playing Page
+### Playing Page - wireframe
 #### User unscrambles letter in order to see picture and information regarding the animal
 ![alt text](assets/20191101_131446.jpg)
-![playing view](assets/Screen Shot 2019-11-07 at 10.54.30 PM.png)
-![completed word](assets/Screen Shot 2019-11-07 at 10.54.57 PM.png)
+
+### Beginning play view
+![playing view](assets/startingView.png)
+
+### Word Completion
+![completed word](assets/correctWordView.png)
+
 ### Technology Used
 
 * HTML
