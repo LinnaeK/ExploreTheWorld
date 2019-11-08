@@ -19,7 +19,7 @@ let world ={
         {name:'ZEBRA', photo:'assets/Animals/zebra-3758310_640.jpg', funFact:'Zebra\'s black and white stripes cause air to move across it\s fur at different speeds thus cooling down the Zebra.',},
         {name:'GAZELLE', photo:'assets/Animals/gazelle-2242886_640.jpg', funFact:'Large herds of these animals are generally female gazelle\'s and their offspring. Male gazelles live in seperate heards.',},],
     jungle: [
-        {name: "MONKEY", photo: 'assets/Animals/monkeys-4550159_640.jpg', funFact: 'At the tip of a monkey\'s tail is a patch of bare skin that acts similar to human fingertips. It is sensitive to touch and has tiny ridges that help it\'s tail grip better.'},
+        {name: "MONKEY", photo: 'assets/Animals/monkeys-4550159_640.jpg', funFact: 'At the tip of a monkey\'s tail is a patch of bare skin that acts similar to human fingertips. It is sensitive to touch and has tiny ridges that help its tail grip better.'},
         {name: 'MACAW', photo:'assets/Animals/macaw-1817586_640.jpg', funFact:'These colorful animals live long lives - up to 60 years in the wild.',},
         {name: 'ANTEATER', photo:'assets/Animals/flag-anteater-1200155_640.jpg', funFact:'In order to avoid being bitten by ants while eating them, anteaters flick their tongue 150-160 times a minute while feeding.',},
         {name:'IGUANA', photo:'assets/Animals/iguana-223157_640.jpg', funFact:'Green iguanas are tough. They can drop from a branch 40 feet in the air, hit the ground, and still survive.',},
@@ -122,6 +122,7 @@ function closeAlert(){
 // displays scene selection and prepares for a new game
 function toSceneSelector(){
     togglePages('.world', '.bigNet')
+    flipButtons(nextBtn, shuffleBtn, hintBtn)
     newGame = true
     renderNewScene()
 }
@@ -268,7 +269,7 @@ function hasWon(){
         updateProgress('prgrs', `${totalCompleted}/${world.mountain.length}`)
         renderPicture('', true)
         calculatePoints()
-        setTimeout(displayFunFact, 1.5*1000)
+        setTimeout(displayFunFact, .5*1000)
     }else if(guessedWord.length === currentWord.length){
         let tryAgain = `<span class = 'warning'>Oops. Try again.<button class = 'close'>x</button></button></span>`
         time += 20
@@ -281,9 +282,15 @@ function hasWon(){
 
 // displays fun fact
 function displayFunFact(){
-    flipButtons(nextBtn)
     let funFactDisp = world[scene][totalCompleted-1].funFact
-    displayPic.innerHTML = `<span id = 'fnFact' >${funFactDisp}</span>`
+    displayPic.innerHTML = `<span id = 'fnFact' ></span>`
+    let fnFact = document.getElementById('fnFact')
+    fnFact.style.opacity = 0;
+    setTimeout(function(){
+        fnFact.innerHTML = `${funFactDisp}`
+        fnFact.style.opacity = 1;
+        setTimeout(()=>flipButtons(nextBtn), 3.5*1000)
+    }, 1500)
 }
 
 // clears letters from screen

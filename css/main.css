@@ -127,6 +127,7 @@ header{
     letter-spacing: .2rem;
     text-align: center;
     font-family:'Libre Franklin', sans-serif;
+    transition: opacity 1.5s ease-in-out;
 }
 .displayPic{
     background-color: #79807e;
