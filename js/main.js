@@ -37,7 +37,7 @@ let currentWord
 let points = 0
 let totalCompleted = 0
 let newGame = true
-let time = 9000
+let time = 45
 let findingWord
 let mvdLtrParent = ""
 
@@ -391,7 +391,7 @@ function renderNewScene(){
      if(newGame){
          points = 0
          totalCompleted = 0
-         time = 9000
+         time = 45
          newGame = false
 
         renderPicture("?", false)
@@ -414,8 +414,6 @@ function init(){
     timer(time)
     flipButtons(nextBtn)
     renderNewScene()
-
-
 }
 
 // flips buttons disabled property
